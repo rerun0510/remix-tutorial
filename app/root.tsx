@@ -1,17 +1,17 @@
-import { cssBundleHref } from "@remix-run/css-bundle";
-import type { LinksFunction } from "@remix-run/node";
 import {
+  Link,
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "@remix-run/react";
+} from '@remix-run/react'
+import { LinksFunction } from '@remix-run/node'
+import tailwindcss from './tailwind.css?url'
 
 export const links: LinksFunction = () => [
-  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
-];
+  { rel: 'stylesheet', href: tailwindcss },
+]
 
 export default function App() {
   return (
@@ -23,11 +23,25 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <Layout>
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+        </Layout>
       </body>
     </html>
-  );
+  )
+}
+
+function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <nav className="px-10 pt-5">
+        <Link to="/" prefetch="intent" className="text-2xl font-semibold">
+          Move<span className="text-teal-500">DB</span>
+        </Link>
+      </nav>
+      <main>{children}</main>
+    </>
+  )
 }
