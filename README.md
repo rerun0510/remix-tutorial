@@ -32,4 +32,3 @@ If you're familiar with deploying Express applications you should be right at ho
 
 - `build/server`
 - `build/client`
-# remix-tutorial
